@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: bookhaven-demo
+    runtime: static
+    buildCommand: npm ci && VITE_DEMO=true npm run build
+    staticPublishPath: client/dist
+    autoDeployTrigger: commit
