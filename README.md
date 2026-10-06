@@ -2,7 +2,7 @@
 
 A full-stack digital library with a private shelf for each reader and a public collection of free classics.
 
-**Live free demo:** The static build uses browser storage for each visitor's shelf and attached files. It has no account system or cross-device sync. The full-stack server below runs locally and supports private accounts.
+**[Live free demo](https://bookhaven-demo.onrender.com/):** The static build uses browser storage for each visitor's shelf and attached files. It has no account system or cross-device sync. The full-stack server below runs locally and supports private accounts.
 
 ## Features
 

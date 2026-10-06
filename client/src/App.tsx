@@ -133,7 +133,7 @@ function App() {
   const [error, setError] = useState('');
   const [formError, setFormError] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
-  const [view, setView] = useState<'personal' | 'free'>('personal');
+  const [view, setView] = useState<'personal' | 'free'>(demo ? 'free' : 'personal');
   const [authMode, setAuthMode] = useState<'signin' | 'register'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
