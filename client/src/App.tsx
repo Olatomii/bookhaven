@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { api, auth } from './api';
+import BookReader from './BookReader';
 import {
   ArrowDownToLine,
   BookOpen,
@@ -81,11 +82,13 @@ const demo = import.meta.env.VITE_DEMO === 'true';
 function FreeCatalog({ onLibrary, signedIn }: { onLibrary: () => void; signedIn: boolean }) {
   const [query, setQuery] = useState('');
   const [genre, setGenre] = useState('All books');
+  const [reading, setReading] = useState<FreeBook | null>(null);
   const matches = freeBooks.filter(book =>
     (genre === 'All books' || book.genre === genre) &&
     (!query.trim() || [book.title, book.author, book.genre].some(value =>
       value.toLowerCase().includes(query.trim().toLowerCase())))
   );
+  if (reading) return <BookReader book={reading} onClose={() => setReading(null)} />;
   return (
     <div className="free-page">
       <header className="free-topbar">
@@ -97,16 +100,16 @@ function FreeCatalog({ onLibrary, signedIn }: { onLibrary: () => void; signedIn:
           <div><span className="eyebrow">OPEN TO EVERY READER</span><h1>Stories worth sharing<span className="period">.</span></h1><p>Discover timeless books you can read for free. No account or payment needed.</p><div className="free-hero-meta"><span>✦ &nbsp; 5 curated classics</span><span>Free EPUB downloads</span></div></div>
           <div className="free-hero-art" aria-hidden="true"><span/><span/><span/><span/></div>
         </section>
-        <div className="free-section-heading"><div><span className="eyebrow">THE OPEN SHELF</span><h2>Explore free books</h2></div><p>Choose a book and download from its original source.</p></div>
+        <div className="free-section-heading"><div><span className="eyebrow">THE OPEN SHELF</span><h2>Explore free books</h2></div><p>Read a complete book here or download a copy.</p></div>
         <div className="free-controls"><label className="search"><Search size={18}/><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search title or author…" aria-label="Search free books"/></label><div className="free-tags" aria-label="Filter free books">{freeGenres.map(item => <button key={item} className={genre === item ? 'chosen' : ''} onClick={() => setGenre(item)}>{item}</button>)}</div></div>
         {matches.length ? <div className="free-grid">{matches.map(book => {
           const [dark, light] = palette(book.title);
           return <article className="free-card" key={book.id}>
             <div className="free-cover" style={{ background: `linear-gradient(145deg, ${dark}, ${light})` }}><span>✦</span><strong>{book.title}</strong><i/><small>{book.author}</small></div>
-            <div className="free-card-info"><div className="free-card-label"><span>{book.genre}</span><span>{book.year}</span></div><h3>{book.title}</h3><p className="free-author">by {book.author}</p><p className="free-description">{book.description}</p><div className="free-card-actions"><a className="free-download" href={`https://www.gutenberg.org/ebooks/${book.id}.epub3.images`} target="_blank" rel="noopener noreferrer"><ArrowDownToLine size={16}/> Download EPUB</a><a className="free-source" href={`https://www.gutenberg.org/ebooks/${book.id}`} target="_blank" rel="noopener noreferrer">Other formats ↗</a></div></div>
+            <div className="free-card-info"><div className="free-card-label"><span>{book.genre}</span><span>{book.year}</span></div><h3>{book.title}</h3><p className="free-author">by {book.author}</p><p className="free-description">{book.description}</p><div className="free-card-actions"><button className="free-download" onClick={() => setReading(book)}><BookOpen size={16}/> Read now</button><a className="free-source" href={`https://www.gutenberg.org/ebooks/${book.id}`} target="_blank" rel="noopener noreferrer">Download ↗</a></div></div>
           </article>;
         })}</div> : <div className="empty"><h3>No books found</h3><p>Try another title, author, or category.</p></div>}
-        <div className="free-note"><BookOpen size={20}/><div><strong>About these editions</strong><p>Downloads open on Project Gutenberg, which provides these books free of charge. The listed editions are marked public domain in the United States. If you are elsewhere, check your local copyright rules and the source's terms before downloading.</p></div></div>
+        <div className="free-note"><BookOpen size={20}/><div><strong>About these editions</strong><p>The complete plain text editions come from Project Gutenberg and retain their full license. They are listed as public domain in the United States. If you are elsewhere, check your local copyright rules and the source's terms before reading or downloading.</p></div></div>
         <footer>Made for the books you can't forget. <span>✦</span></footer>
       </main>
     </div>

@@ -9,7 +9,7 @@ A full-stack digital library with a private shelf for each reader and a public c
 - Create an account and sign in with email and password.
 - Add, search, edit, filter, and remove books; track reading status and notes.
 - Attach a PDF or EPUB (up to 3 MB) and download it through an owner-only API route.
-- Browse five free classics without an account. EPUB downloads are linked to the original Project Gutenberg editions; the app does not copy or host those books.
+- Read five complete classics in the site without an account, adjust the text size, and resume at the saved position. The included plain text editions retain their Project Gutenberg license; download links lead to the source listings.
 - Responsive interface for desktop and mobile.
 
 ## Stack
@@ -78,6 +78,6 @@ Set `TRUST_PROXY=true` only when a trusted HTTPS reverse proxy is directly in fr
 
 ## Content and scope
 
-The free shelf links to Project Gutenberg. Those source listings describe the editions as public domain in the United States; readers elsewhere should check local law and the source terms. Personal uploads remain available only to their owner. Paid books, checkout, merchant payouts, and publishing rights management are not part of this version.
+The free shelf includes five unmodified plain text editions from Project Gutenberg in `client/public/books/`, including their complete front matter and licenses. The reader reformats line breaks for comfortable reading and links to the full license and each source listing. Those source listings describe the editions as public domain in the United States; readers elsewhere should check local law and the source terms. Personal uploads remain available only to their owner. Paid books, checkout, merchant payouts, and publishing rights management are not part of this version.
 
 This repository contains application code only. Do not commit the `data/` directory, account information, uploaded books, or future payment keys.
