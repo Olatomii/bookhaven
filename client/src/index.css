@@ -839,6 +839,16 @@ footer span {
   border: 0;
   background: none;
   color: #647f70;
+  cursor: pointer;
+}
+.file-row .file-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 700;
+  color: #285c48;
 }
 .welcome {
   min-height: 100vh;
@@ -1272,15 +1282,36 @@ footer span {
 .reader-end { text-align: center; border-top: 1px solid #e4e5dc; padding-top: 35px; margin-top: 50px; color: #829184; }
 .reader-end > span { font-size: 27px; color: #bc744b; }
 .reader-end a { color: #315e48; display: inline-flex; gap: 7px; align-items: center; font: 700 12px Arial, sans-serif; }
+.reader-file-download { justify-self: end; display: inline-flex; align-items: center; gap: 7px; padding: 9px 12px; border: 1px solid #779282; border-radius: 7px; background: transparent; color: #fff9ee; cursor: pointer; font-size: 12px; font-weight: 700; }
+.reader-file-download:disabled, .uploaded-reader-nav button:disabled, .uploaded-reader-state button:disabled { opacity: .45; cursor: default; }
+.uploaded-pdf { flex: 1; min-height: 0; width: 100%; border: 0; background: #fff; }
+.uploaded-reader-state { margin: auto; padding: 24px; text-align: center; color: #506d5c; }
+.uploaded-reader-state p { margin: 0 0 15px; }
+.uploaded-reader-state button { border: 1px solid #bcccbf; border-radius: 7px; padding: 10px 14px; background: #fffdfa; color: #285c48; cursor: pointer; }
+.uploaded-reader-nav { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 9px 20px; background: #e6ede4; color: #4f6957; }
+.uploaded-reader-nav button { display: grid; place-items: center; border: 0; background: transparent; color: inherit; cursor: pointer; padding: 6px; }
+.uploaded-reader-nav label { display: flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 700; }
+.uploaded-reader-nav select { max-width: min(43vw, 380px); padding: 7px 9px; border: 1px solid #c9d4c9; border-radius: 6px; background: #fffdfa; color: #294d39; }
+.uploaded-reader-count { font-size: 11px; white-space: nowrap; }
+.uploaded-reader-size { display: flex; align-items: center; margin-left: 18px; gap: 3px; }
+.uploaded-reader-size span { font: 500 16px Newsreader, Georgia, serif; }
+.uploaded-paper .reader-body { margin-top: 32px; }
+.uploaded-paper .eyebrow { overflow-wrap: anywhere; }
 @media (max-width: 650px) {
   .reader-top { grid-template-columns: 1fr auto; min-height: 61px; }
   .reader-back span { display: none; }
   .reader-heading { text-align: left; grid-column: 1; grid-row: 1; margin-left: 36px; }
   .reader-back { grid-column: 1; grid-row: 1; z-index: 1; }
   .reader-tools { grid-column: 2; grid-row: 1; }
+  .reader-file-download { grid-column: 2; grid-row: 1; padding: 8px; }
+  .reader-file-download span { display: none; }
   .reader-heading strong { font-size: 15px; max-width: 34vw; }
   .reader-heading span { display: none; }
   .reader-paper { margin: 0; padding: 28px 20px 60px; border: 0; min-height: 100%; }
+  .uploaded-reader-nav { gap: 2px; padding: 7px; }
+  .uploaded-reader-nav label > span, .uploaded-reader-count { display: none; }
+  .uploaded-reader-nav select { max-width: 48vw; font-size: 11px; }
+  .uploaded-reader-size { margin-left: 3px; }
 }
 .free-note strong { font-size: 12px; }
 .free-note p { color: #6f8374; font-size: 11px; line-height: 1.55; margin: 5px 0 0; }

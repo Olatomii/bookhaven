@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { api, auth } from './api';
 import BookReader from './BookReader';
+import UploadedReader from './UploadedReader';
 import {
-  ArrowDownToLine,
   BookOpen,
   Check,
   ChevronDown,
@@ -131,6 +131,7 @@ function App() {
   const [editing, setEditing] = useState<Book | null>(null);
   const [form, setForm] = useState<Form>(empty);
   const [selected, setSelected] = useState<Book | null>(null);
+  const [readingUpload, setReadingUpload] = useState<Book | null>(null);
   const [pendingFile, setPendingFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -307,19 +308,9 @@ function App() {
       setError(`Could not remove the book. ${messageOf(err)}`);
     }
   }
-  async function openFile(book: Book) {
-    try {
-      const { data } = await api.get(`/api/books/${book.id}/file`);
-      if (demo) {
-        const link = document.createElement('a');
-        link.href = data.url;
-        link.download = book.fileName || 'ebook';
-        link.click();
-        setTimeout(() => URL.revokeObjectURL(data.url), 60_000);
-      } else window.open(data.url, '_blank', 'noopener,noreferrer');
-    } catch (err) {
-      setError(`Could not open the file. ${messageOf(err)}`);
-    }
+  function readFile(book: Book) {
+    setSelected(null);
+    setReadingUpload(book);
   }
   async function removeFile(book: Book) {
     if (!window.confirm(`Remove the file attached to '${book.title}'?`)) return;
@@ -725,10 +716,10 @@ function App() {
                   <FileText size={21} />
                   <span title={selected.fileName}>{selected.fileName}</span>
                   <button
-                    onClick={() => void openFile(selected)}
-                    aria-label="Open ebook"
+                    className="file-read"
+                    onClick={() => readFile(selected)}
                   >
-                    <ArrowDownToLine size={18} />
+                    <BookOpen size={17} /> Read file
                   </button>
                   <button
                     onClick={() => void removeFile(selected)}
@@ -754,6 +745,7 @@ function App() {
           </div>
         </div>
       )}
+      {readingUpload && <UploadedReader book={readingUpload} onClose={() => setReadingUpload(null)} />}
       {modal && (
         <div className="overlay" onClick={() => !saving && setModal(false)}>
           <div

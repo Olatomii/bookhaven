@@ -8,7 +8,7 @@ A full-stack digital library with a private shelf for each reader and a public c
 
 - Create an account and sign in with email and password.
 - Add, search, edit, filter, and remove books; track reading status and notes.
-- Attach a PDF or EPUB (up to 3 MB) and download it through an owner-only API route.
+- Attach a PDF or EPUB (up to 3 MB), read it on the site, or download it. PDFs use the browser's PDF viewer; EPUBs display their text in section order with adjustable type and a saved section. EPUB images and complex layouts are not displayed in the text reader.
 - Read five complete classics in the site without an account, adjust the text size, and resume at the saved position. The included plain text editions retain their Project Gutenberg license; download links lead to the source listings.
 - Responsive interface for desktop and mobile.
 
@@ -69,7 +69,7 @@ Set `TRUST_PROXY=true` only when a trusted HTTPS reverse proxy is directly in fr
 
 | Location | Purpose |
 | --- | --- |
-| `client/src/App.tsx` | Reader interface and public free-book shelf |
+| `client/src/App.tsx`, `client/src/UploadedReader.tsx` | Reader interface, personal PDF/EPUB reader, and public free-book shelf |
 | `client/src/api.ts`, `client/src/local-api.ts` | Server API requests or browser-local demo storage |
 | `server/app.mjs` | Authenticated API routes and file downloads |
 | `server/db.mjs` | SQLite schema and book serialization |
